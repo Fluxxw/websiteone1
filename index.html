@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legacy City Roleplay</title>
+    <style>
+        body {
+            background-color: #121826;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 0 0 10px #44ff44;
+            margin-top: 50px;
+        }
+        .sub-logo {
+            color: #44ff44;
+            font-style: italic;
+        }
+        .container {
+            margin: 30px auto;
+            width: 50%;
+            background-color: #1e2a3a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(68, 255, 68, 0.5);
+            transition: box-shadow 0.3s ease-in-out;
+            position: relative;
+        }
+        .container:hover {
+            box-shadow: 0 0 25px rgba(68, 255, 68, 1);
+        }
+        input, textarea {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #2d3b4e;
+            color: white;
+            outline: none;
+        }
+        button {
+            width: 95%;
+            padding: 10px;
+            background-color: #44ff44;
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #33cc33;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">LEGACY CITY <span class="sub-logo">ROLEPLAY</span></div>
+    <h2>Whitelist Application</h2>
+    <div class="container">
+        <input type="text" id="nameIRL" placeholder="Name IRL">
+        <input type="number" id="ageIRL" placeholder="Age IRL">
+        <input type="text" id="nameRP" placeholder="Name RP">
+        <input type="number" id="ageRP" placeholder="Age RP">
+        <input type="text" id="gender" placeholder="Gender">
+        <input type="text" id="discordUsername" placeholder="Discord Username">
+        <input type="text" id="serialNumber" placeholder="Serial Number">
+        <textarea id="characterStory" placeholder="Character Story" rows="4"></textarea>
+        <textarea id="reasonJoin" placeholder="Why do you want to join our server?" rows="4"></textarea>
+        <button onclick="submitApplication()">Submit Application</button>
+    </div>
+    <script>
+        function submitApplication() {
+            const webhookURL = "YOUR_DISCORD_WEBHOOK_URL";
+            const nameIRL = document.getElementById("nameIRL").value;
+            const ageIRL = document.getElementById("ageIRL").value;
+            const nameRP = document.getElementById("nameRP").value;
+            const ageRP = document.getElementById("ageRP").value;
+            const gender = document.getElementById("gender").value;
+            const discordUsername = document.getElementById("discordUsername").value;
+            const serialNumber = document.getElementById("serialNumber").value;
+            const characterStory = document.getElementById("characterStory").value;
+            const reasonJoin = document.getElementById("reasonJoin").value;
+
+            const embed = {
+                title: "New Whitelist Application",
+                color: 65280,
+                fields: [
+                    { name: "Name IRL", value: nameIRL, inline: true },
+                    { name: "Age IRL", value: ageIRL, inline: true },
+                    { name: "Name RP", value: nameRP, inline: true },
+                    { name: "Age RP", value: ageRP, inline: true },
+                    { name: "Gender", value: gender, inline: true },
+                    { name: "Discord Username", value: discordUsername, inline: true },
+                    { name: "Serial Number", value: serialNumber, inline: true },
+                    { name: "Character Story", value: characterStory },
+                    { name: "Reason to Join", value: reasonJoin }
+                ]
+            };
+
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ embeds: [embed] })
+            }).then(() => alert("Application submitted successfully!"))
+              .catch(err => alert("Error submitting application: " + err));
+        }
+    </script>
+</body>
+</html>
